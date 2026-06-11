@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  --color-bg: #060608;
+  --color-surface: rgba(255, 255, 255, 0.042);
+  --color-accent: #7c6fff;
+  --color-accent-dark: #4f46e5;
+  --color-teal: #0fcfb0;
+
+  --backdrop-blur-glass: 24px;
+
+  --animate-drift-1: drift1 18s ease-in-out infinite alternate;
+  --animate-drift-2: drift2 22s ease-in-out infinite alternate;
+  --animate-drift-3: drift3 16s ease-in-out infinite alternate;
+  --animate-fade-up: fadeUp 0.8s ease both;
+  --animate-glow: glow 2s ease-in-out infinite;
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-spin: spin 0.9s linear infinite;
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes drift1 {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(80px, 60px) scale(1.15); }
+  }
+  @keyframes drift2 {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(-60px, 80px) scale(1.1); }
+  }
+  @keyframes drift3 {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(40px, -50px) scale(1.2); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 6px #0FCFB0; }
+    50% { box-shadow: 0 0 14px #0FCFB0; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+}
+
+@layer base {
+  :root {
+    --bg: #060608;
+    --glass-bg: rgba(255, 255, 255, 0.042);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-bright: rgba(255, 255, 255, 0.14);
+    --text: #ffffff;
+    --text-2: rgba(255, 255, 255, 0.55);
+    --text-3: rgba(255, 255, 255, 0.28);
+    --accent: #7c6fff;
+    --accent-dark: #4f46e5;
+    --teal: #0fcfb0;
+    --r: 14px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  /* Glass card */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-bright {
+    border-color: var(--glass-border-bright);
+  }
+
+  /* Gradient text */
+  .grad-white {
+    background: linear-gradient(135deg, #fff 30%, rgba(124, 111, 255, 0.9));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .grad-accent {
+    background: linear-gradient(135deg, #7c6fff, #0fcfb0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .grad-btn {
+    background: linear-gradient(135deg, #7c6fff, #4f46e5);
+  }
+
+  /* Text colors */
+  .text-1 {
+    color: var(--text);
+  }
+  .text-2 {
+    color: var(--text-2);
+  }
+  .text-3 {
+    color: var(--text-3);
+  }
+
+  /* Fade-up animation class (used with IntersectionObserver) */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Accent glow shadow */
+  .shadow-accent {
+    box-shadow: 0 0 0 1px rgba(124, 111, 255, 0.3),
+      0 8px 32px rgba(124, 111, 255, 0.25);
+  }
+  .shadow-accent-hover:hover {
+    box-shadow: 0 0 0 1px rgba(124, 111, 255, 0.5),
+      0 12px 40px rgba(124, 111, 255, 0.35);
+  }
+
+  /* Cursor blink */
+  .cursor-blink {
+    display: inline-block;
+    width: 2px;
+    height: 13px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+}
